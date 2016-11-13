@@ -17,7 +17,8 @@ var main = new UI.Card({
   subtitle: 'Welcome to Pact!',
   body: 'Press any button to ask!',
   subtitleColor: 'indigo', // Named colors
-  bodyColor: '#9a0036' // Hex colors
+  bodyColor: '#9a0036', // Hex colors
+  backgroundColor: "yellow"
 });
 
 main.show();
@@ -141,17 +142,13 @@ main.on('click', 'select', function(e) {
               console.log('The item is titled "' + e.item.title + '"');
               var resultCard = new UI.Card();
               resultCard.title(usrVoiceInput);
+              resultCard.subtitle("Successfully Added to Calendar!");
+              resultCard.textAlign('center');
               resultCard.show();
-              var evt_image = new UI.Image({
-                position: new Vector2(0, 0),
-                size: new Vector2(144, 144),
-                backgroundColor: 'black',
-                image: 'images/eventscheduled.png'
-              });
-              resultCard.add(evt_image);
           });
 
-          timesCard.show();          
+          timesCard.show();
+
         });
       }
 
