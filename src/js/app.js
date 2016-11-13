@@ -41,28 +41,40 @@ main.on('click', 'select', function(e) {
         return;
       }
 
-      // ajax({
-      //     url: 'http://echo.jsontest.com/message/'+encode(e.transcription),
-      //     method: 'GET',
-      //     type: undefined,
-      //     headers: {
-      //     }
-      //   },
-      //   function(data, status, request) {
-      //       console.log('Awesome! Your message has been posted.');
-      //   },
-      //   function(error, status, request) {
-      //       console.log('There was an error posting your message.');
-      //   }
-      // );
+      var coordinates = {"lat": "", "longt": ""};
 
-      ajax({
-          url: "https://pebble-app-test-abdallahozaifa.c9users.io/pebble",
+      function success(pos) {
+        console.log('lat= ' + pos.coords.latitude + ' lon= ' + pos.coords.longitude);
+        coordinates.lat = pos.coords.latitude;
+        coordinates.longt = pos.coords.longitude;
+
+        ajax({
+          url: "https://pebble-app-test-abdallahozaifa.c9users.io/activity",
           method: "POST",
           type: 'json',
-          data: {"data" : e.transcription},
-          crossDomain: true
-      });
+          data: {"text" : e.transcription, "longitude": coordinates.longt, "latitude": coordinates.lat},
+          crossDomain: true,
+        }, function(data){
+          console.log(data);
+        });
+      }
+
+      function error(err) {
+        console.log('location error (' + err.code + '): ' + err.message);
+      }
+
+      /* ... */
+
+      // Choose options about the data returned
+      var options = {
+        enableHighAccuracy: true,
+        maximumAge: 10000,
+        timeout: 10000
+      };
+
+      // Request current position
+      navigator.geolocation.getCurrentPosition(success, error, options);
+
     });  
   });
 });

@@ -2,7 +2,8 @@
   " enableMultiJS": true,
   "appKeys": {},
   "capabilities": [
-    "configurable"
+    "configurable",
+    "location"
   ],
   "companyName": "Meiguro",
   "longName": "Pebble.js",
