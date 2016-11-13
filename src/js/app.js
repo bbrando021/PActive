@@ -54,8 +54,27 @@ main.on('click', 'select', function(e) {
           type: 'json',
           data: {"text" : e.transcription, "longitude": coordinates.longt, "latitude": coordinates.lat},
           crossDomain: true,
-        }, function(data){
-          console.log(data);
+        }, function success(data, status){
+          console.log("Status: " + status);
+          var times = data;
+          var list = [];
+
+          for(var i=0; i<times.length; i++){
+            console.log(times[i].timeString);
+            list.push({"title": times[i].timeString});
+          }
+
+          var timesCard = new UI.Menu({
+              backgroundColor: 'black',
+              textColor: 'blue',
+              highlightBackgroundColor: 'blue',
+              highlightTextColor: 'black',
+              sections: [{
+                items: list
+              }]
+          });
+
+          timesCard.show();          
         });
       }
 
